@@ -24,6 +24,7 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
     private DefaultTableModel selectionTableModel;
     private JTable selectionTable;
 
+
     private DefaultTableModel transactionTableModel;
     private JTable transactionTable;
 
@@ -127,11 +128,19 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
         JScrollPane transactionScrollPane = new JScrollPane(transactionTable);
         transactionPanel.add(transactionScrollPane, BorderLayout.CENTER);
 
+        // set tables to non-editable state
+        transactionTable.setDefaultEditor(Object.class, null);
+        selectionTable.setDefaultEditor(Object.class,null);
+
+
         // ----------------------- Add both tabs to the tabbed pane -----------------------
         tabbedPane.addTab("Registration", registrationPanel);
         tabbedPane.addTab("Transaction Log", transactionPanel);
 
         add(tabbedPane);
+
+
+
     }
 
     // -------------------------- ItemListener --------------------------
@@ -173,6 +182,7 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == calcButton) {
             calculateFee();
+            clearForm();
         } else if (e.getSource() == clearButton) {
             clearForm();
         }
