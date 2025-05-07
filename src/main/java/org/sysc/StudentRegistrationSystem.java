@@ -8,32 +8,25 @@ import java.awt.event.*;
 
 public class StudentRegistrationSystem extends JFrame implements ActionListener, ItemListener {
 
-    // Form fields for student information
     private JTextField nameField;
     private JTextField ageField;
 
-    // Checkboxes for courses
     private JCheckBox mathCheck;
     private JCheckBox physicsCheck;
     private JCheckBox chemistryCheck;
 
-    // Checkboxes for additional services
     private JCheckBox transportCheck;
     private JCheckBox hostelCheck;
 
-    // Buttons for fee calculation and clearing the form
     private JButton calcButton;
     private JButton clearButton;
 
-    // Table to display currently selected courses and services
     private DefaultTableModel selectionTableModel;
     private JTable selectionTable;
 
-    // Table to log each transaction (student registration)
     private DefaultTableModel transactionTableModel;
     private JTable transactionTable;
 
-    // Arrays to store course and service names along with their fees
     private final String[] courseNames = {"Mathematics", "Physics", "Chemistry"};
     private final int[] courseFees = {1000, 1200, 1500};
 
@@ -50,7 +43,7 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
     }
 
     private void initComponents() {
-        // Create a tabbed pane for switching between registration and transaction log views
+        // tabbed pane for switching between registration and transaction log views
         JTabbedPane tabbedPane = new JTabbedPane();
 
         // ============================== Registration Panel ==============================
@@ -90,11 +83,11 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
         servicesPanel.add(transportCheck);
         servicesPanel.add(hostelCheck);
 
-        // Adding courses and services panels into the selection options panel
+        //courses and services panels into the selection options panel
         selectionOptionsPanel.add(coursesPanel);
         selectionOptionsPanel.add(servicesPanel);
 
-        // Add both student info and selection options panels to the top panel
+        // student info and selection options panels to the top panel
         topPanel.add(studentInfoPanel);
         topPanel.add(selectionOptionsPanel);
 
@@ -119,7 +112,7 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
         buttonPanel.add(clearButton);
         registrationPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Add item listeners to checkboxes to update selected items table dynamically
+        // Add item listeners
         mathCheck.addItemListener(this);
         physicsCheck.addItemListener(this);
         chemistryCheck.addItemListener(this);
@@ -160,7 +153,7 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
         }
     }
 
-    // Helper method to add or remove an item from the Selected Items table
+    // Helper method
     private void updateSelectionItem(String category, String item, int fee, boolean add) {
         if (add) {
             selectionTableModel.addRow(new Object[]{category, item, fee});
@@ -219,10 +212,10 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
             totalFee += fee;
 
             if (category.equals("Course")) {
-                if (coursesList.length() > 0) coursesList.append(", ");
+                if (!coursesList.isEmpty()) coursesList.append(", ");
                 coursesList.append(item);
             } else if (category.equals("Service")) {
-                if (servicesList.length() > 0) servicesList.append(", ");
+                if (!servicesList.isEmpty()) servicesList.append(", ");
                 servicesList.append(item);
             }
         }
@@ -253,7 +246,5 @@ public class StudentRegistrationSystem extends JFrame implements ActionListener,
         selectionTableModel.setRowCount(0);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new StudentRegistrationSystem());
-    }
+
 }
